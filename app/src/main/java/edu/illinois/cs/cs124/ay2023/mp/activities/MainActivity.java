@@ -45,7 +45,7 @@ public final class MainActivity extends AppCompatActivity
 
     // Load this activity's layout and set the title
     setContentView(R.layout.activity_main);
-    setTitle("Search Course");
+    setTitle("Search Courses");
 
     // Setup the list adapter for the list of summaries
     listAdapter = new SummaryListAdapter(summaries, this);
