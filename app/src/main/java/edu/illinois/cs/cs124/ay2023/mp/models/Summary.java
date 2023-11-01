@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @noinspection unused
  */
-public class Summary implements Comparable<Summary>{
+public class Summary implements Comparable<Summary> {
   private String subject;
 
   /**
