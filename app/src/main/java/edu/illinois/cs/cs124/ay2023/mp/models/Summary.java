@@ -2,13 +2,14 @@ package edu.illinois.cs.cs124.ay2023.mp.models;
 
 import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;
+import java.util.List;
 
 /**
  * Model holding the course summary information shown in the summary list.
  *
  * @noinspection unused
  */
-public class Summary {
+public class Summary implements Comparable<Summary>{
   private String subject;
 
   /**
@@ -66,5 +67,14 @@ public class Summary {
   @Override
   public String toString() {
     return subject + " " + number + ": " + label;
+  }
+
+  @Override
+  public int compareTo(Summary o) {
+    return 0;
+  }
+
+  public static List<Summary> filter(List<Summary> list, String filter) {
+    return list;
   }
 }
