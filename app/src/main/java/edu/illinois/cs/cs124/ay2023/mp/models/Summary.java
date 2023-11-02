@@ -1,7 +1,10 @@
 package edu.illinois.cs.cs124.ay2023.mp.models;
 
+//import android.util.Log;
 import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -78,6 +81,19 @@ public class Summary implements Comparable<Summary> {
   }
 
   public static List<Summary> filter(List<Summary> list, String filter) {
-    return list;
+    List<Summary> out = new ArrayList<>();
+    String fil = filter.trim().toLowerCase();
+    for (Summary s: list) {
+      if (s.toString().toLowerCase().contains(fil)) {
+        out.add(s);
+      }
+    }
+    Collections.sort(out);
+    out.sort((first, second) -> {
+      int pos1 = first.toString().toLowerCase().indexOf(fil);
+      int pos2 = second.toString().toLowerCase().indexOf(fil);
+      return pos1 - pos2;
+    });
+    return out;
   }
 }
