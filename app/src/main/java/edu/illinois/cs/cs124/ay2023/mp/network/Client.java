@@ -46,6 +46,7 @@ public final class Client {
    * @param callback the callback that will receive the result
    */
   public void getSummary(@NonNull Consumer<ResultMightThrow<List<Summary>>> callback) {
+    Log.i("DataFetch", "Calling getSummary");
     StringRequest summaryRequest =
         new StringRequest(
             Request.Method.GET,

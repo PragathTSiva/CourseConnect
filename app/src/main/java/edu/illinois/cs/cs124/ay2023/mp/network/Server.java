@@ -91,6 +91,7 @@ public final class Server extends Dispatcher {
         // Used to reset the server during testing
         return new MockResponse().setBody("200: OK").setResponseCode(HttpURLConnection.HTTP_OK);
       } else if (path.equals("/summary/") && method.equals("GET")) {
+        System.out.println("DataFetch: returning summary list");
         return getSummaries();
       } else {
         // Default is not found

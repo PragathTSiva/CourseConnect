@@ -71,7 +71,10 @@ public class Summary implements Comparable<Summary> {
 
   @Override
   public int compareTo(Summary o) {
-    return 0;
+    if (number.compareTo(o.number) == 0) {
+      return subject.compareTo(o.subject);
+    }
+    return number.compareTo(o.number);
   }
 
   public static List<Summary> filter(List<Summary> list, String filter) {

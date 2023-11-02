@@ -57,6 +57,7 @@ public final class MainActivity extends AppCompatActivity
 
     // Initiate a request for the summary list
     CourseableApplication application = (CourseableApplication) getApplication();
+    Log.i("DataFetch", "MainActivity retrieving summaries");
     application.getClient().getSummary(summaryCallback);
 
     // Register this component as a callback for changes to the search view component shown above
@@ -73,6 +74,7 @@ public final class MainActivity extends AppCompatActivity
       (result) -> {
         try {
           summaries = result.getValue();
+          Collections.sort(summaries);
           listAdapter.setSummaries(summaries);
         } catch (Exception e) {
           e.printStackTrace();
