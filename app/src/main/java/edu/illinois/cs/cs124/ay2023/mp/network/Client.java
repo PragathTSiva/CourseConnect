@@ -64,6 +64,11 @@ public final class Client {
     requestQueue.add(summaryRequest);
   }
 
+  public void getCourse(Summary summary, @NonNull Consumer<ResultMightThrow<Course>> callback) {
+    // Finish getCourse method
+    callback.accept(new ResultMightThrow<>(new IllegalStateException("TODO")));
+  }
+
   // You should not need to modify the code below
 
   /** Client instance to implement the singleton pattern. */
