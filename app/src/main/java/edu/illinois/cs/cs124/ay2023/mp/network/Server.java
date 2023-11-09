@@ -11,7 +11,9 @@ import edu.illinois.cs.cs124.ay2023.mp.models.Summary;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -36,6 +38,8 @@ import okhttp3.mockwebserver.RecordedRequest;
 public final class Server extends Dispatcher {
   /** List of summaries as a JSON string. */
   private final String summariesJSON;
+  private Map<Summary, String> courses = new HashMap<Summary, String>();
+  private String[] pathsplit;
 
   /** Helper method to create a 200 HTTP response with a body. */
   private MockResponse makeOKJSONResponse(@NonNull String body) {
@@ -62,11 +66,23 @@ public final class Server extends Dispatcher {
     return makeOKJSONResponse(summariesJSON);
   }
 
+  private MockResponse getCourse(String path) {
+    pathsplit = path.split("/");
+    for (Summary s: courses.keySet()) {
+      String sum = s.toString();
+      if (sum.contains(pathsplit[2]) && sum.contains(pathsplit[3])) {
+        return makeOKJSONResponse(courses.get(s));
+      }
+    }
+    return HTTP_NOT_FOUND;
+  }
+
   /**
    * HTTP request dispatcher.
    *
    * <p>This method receives HTTP requests from clients and determines how to handle them, based on
    * the request path and method.
+   * @noinspection checkstyle:MagicNumber
    */
   @NonNull
   @Override
@@ -81,6 +97,9 @@ public final class Server extends Dispatcher {
       String path = request.getPath().replaceAll("/+", "/");
       String method = request.getMethod().toUpperCase();
 
+      pathsplit = path.split("/");
+
+
       // Main dispatcher tree tree
       if (path.equals("/") && method.equals("GET")) {
         // Used by API client to validate server
@@ -93,6 +112,14 @@ public final class Server extends Dispatcher {
       } else if (path.equals("/summary/") && method.equals("GET")) {
         System.out.println("DataFetch: returning summary list");
         return getSummaries();
+      } else if (path.startsWith("/course/")) {
+        final int num = 4;
+        if (pathsplit.length != num) {
+          return new MockResponse()
+              .setResponseCode(HttpURLConnection.HTTP_BAD_REQUEST)
+              .setBody("400: Bad Request");
+        }
+        return getCourse(path);
       } else {
         // Default is not found
         return HTTP_NOT_FOUND;
@@ -219,6 +246,7 @@ public final class Server extends Dispatcher {
         // Deserialize as Summary and add to the list
         Summary summary = OBJECT_MAPPER.readValue(node.toString(), Summary.class);
         summaries.add(summary);
+        courses.put(summary, node.toPrettyString());
       }
       // Convert the List<Summary> to a String and return it
       return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(summaries);
