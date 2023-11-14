@@ -70,7 +70,10 @@ public final class Client {
     StringRequest courseRequest =
         new StringRequest(
             Request.Method.GET,
-            CourseableApplication.SERVER_URL + "/course/" + summary.getSubject() + "/"
+            CourseableApplication.SERVER_URL
+                + "/course/"
+                + summary.getSubject()
+                + "/"
                 + summary.getNumber(),
             response -> {
               try {

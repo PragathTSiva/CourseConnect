@@ -38,6 +38,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 public final class Server extends Dispatcher {
   /** List of summaries as a JSON string. */
   private final String summariesJSON;
+
   private Map<Summary, String> courses = new HashMap<Summary, String>();
   private String[] pathsplit;
 
@@ -68,7 +69,7 @@ public final class Server extends Dispatcher {
 
   private MockResponse getCourse(String path) {
     pathsplit = path.split("/");
-    for (Summary s: courses.keySet()) {
+    for (Summary s : courses.keySet()) {
       String sum = s.toString();
       if (sum.contains(pathsplit[2]) && sum.contains(pathsplit[3])) {
         return makeOKJSONResponse(courses.get(s));
@@ -82,6 +83,7 @@ public final class Server extends Dispatcher {
    *
    * <p>This method receives HTTP requests from clients and determines how to handle them, based on
    * the request path and method.
+   *
    * @noinspection checkstyle:MagicNumber
    */
   @NonNull
@@ -98,7 +100,6 @@ public final class Server extends Dispatcher {
       String method = request.getMethod().toUpperCase();
 
       pathsplit = path.split("/");
-
 
       // Main dispatcher tree tree
       if (path.equals("/") && method.equals("GET")) {
@@ -233,7 +234,8 @@ public final class Server extends Dispatcher {
     //noinspection CharsetObjectCanBeUsed
     String json =
         new Scanner(Server.class.getResourceAsStream("/courses.json"), "UTF-8")
-            .useDelimiter("\\A").next();
+            .useDelimiter("\\A")
+            .next();
 
     // Build the list of summaries
     List<Summary> summaries = new ArrayList<>();
