@@ -67,7 +67,21 @@ public final class Client {
 
   public void getCourse(Summary summary, @NonNull Consumer<ResultMightThrow<Course>> callback) {
     // Finish getCourse method
-    callback.accept(new ResultMightThrow<>(new IllegalStateException("TODO")));
+    StringRequest courseRequest =
+        new StringRequest(
+            Request.Method.GET,
+            CourseableApplication.SERVER_URL + "/course/" + summary.getSubject() + "/"
+                + summary.getNumber(),
+            response -> {
+              try {
+                Course course = OBJECT_MAPPER.readValue(response, new TypeReference<>() {});
+                callback.accept(new ResultMightThrow<>(course));
+              } catch (JsonProcessingException e) {
+                callback.accept(new ResultMightThrow<>(e));
+              }
+            },
+            error -> callback.accept(new ResultMightThrow<>(error)));
+    requestQueue.add(courseRequest);
   }
 
   // You should not need to modify the code below

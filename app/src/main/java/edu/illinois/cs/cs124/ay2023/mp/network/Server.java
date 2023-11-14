@@ -115,9 +115,7 @@ public final class Server extends Dispatcher {
       } else if (path.startsWith("/course/")) {
         final int num = 4;
         if (pathsplit.length != num) {
-          return new MockResponse()
-              .setResponseCode(HttpURLConnection.HTTP_BAD_REQUEST)
-              .setBody("400: Bad Request");
+          return HTTP_BAD_REQUEST;
         }
         return getCourse(path);
       } else {
