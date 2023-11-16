@@ -41,7 +41,7 @@ public class CourseActivity extends AppCompatActivity {
             try {
               String desc = course.getDescription();
               String title = summary.toString();
-              descriptionTextView.setText(title + "\n\n\n" + desc);
+              descriptionTextView.setText(title + "\n\n\n\n" + desc);
             } catch (Exception e) {
               e.printStackTrace();
             }
