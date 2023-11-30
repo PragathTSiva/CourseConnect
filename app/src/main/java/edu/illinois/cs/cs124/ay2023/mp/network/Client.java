@@ -87,6 +87,9 @@ public final class Client {
     requestQueue.add(courseRequest);
   }
 
+  public void getRating(Summary summary, @NonNull Consumer<ResultMightThrow<Rating>> callback) {
+    callback.accept(new ResultMightThrow<>(new IllegalStateException()));
+  }
   // You should not need to modify the code below
 
   /** Client instance to implement the singleton pattern. */
