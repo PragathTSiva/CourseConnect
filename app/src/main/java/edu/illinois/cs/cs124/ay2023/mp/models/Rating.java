@@ -9,6 +9,11 @@ public class Rating {
   public Rating() {
 
   }
+
+  public Summary getSummary() {
+    return summary;
+  }
+
   public Rating(Summary setSummary, float setRating) {
     summary = setSummary;
     rating = setRating;
