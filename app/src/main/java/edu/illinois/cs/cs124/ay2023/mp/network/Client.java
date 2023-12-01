@@ -88,13 +88,33 @@ public final class Client {
     requestQueue.add(courseRequest);
   }
 
-  public void getRating(@NonNull Summary summary, @NonNull Consumer<ResultMightThrow<Rating>> callback) {
+  public void getRating(
+      @NonNull Summary summary, @NonNull Consumer<ResultMightThrow<Rating>> callback) {
+    StringRequest ratingRequest =
+        new StringRequest(
+            Request.Method.GET,
+            CourseableApplication.SERVER_URL
+                + "/rating/"
+                + summary.getSubject()
+                + "/"
+                + summary.getNumber(),
+            response -> {
+              try {
+                Rating rating = OBJECT_MAPPER.readValue(response, new TypeReference<>() {});
+                callback.accept(new ResultMightThrow<>(rating));
+              } catch (JsonProcessingException e) {
+                callback.accept(new ResultMightThrow<>(e));
+              }
+            },
+            error -> callback.accept(new ResultMightThrow<>(error)));
+    requestQueue.add(ratingRequest);
+  }
+
+  public void postRating(
+      @NonNull Rating rating, @NonNull Consumer<ResultMightThrow<Rating>> callback) {
     callback.accept(new ResultMightThrow<>(new IllegalStateException()));
   }
 
-  public void postRating(@NonNull Rating rating, @NonNull Consumer<ResultMightThrow<Rating>> callback) {
-    callback.accept(new ResultMightThrow<>(new IllegalStateException()));
-  }
   // You should not need to modify the code below
 
   /** Client instance to implement the singleton pattern. */

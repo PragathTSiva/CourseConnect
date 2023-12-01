@@ -6,18 +6,21 @@ public class Rating {
 
   private Summary summary;
 
-  public Rating() {
+  public Rating() {}
 
+  public Rating(Summary setSummary, float setRating) {
+    summary = setSummary;
+    rating = setRating;
+  }
+
+  public Rating(Summary setSummary) {
+    summary = setSummary;
   }
 
   public Summary getSummary() {
     return summary;
   }
 
-  public Rating(Summary setSummary, float setRating) {
-    summary = setSummary;
-    rating = setRating;
-  }
   public float getRating() {
     return rating;
   }
