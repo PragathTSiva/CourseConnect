@@ -112,7 +112,35 @@ public final class Client {
 
   public void postRating(
       @NonNull Rating rating, @NonNull Consumer<ResultMightThrow<Rating>> callback) {
-    callback.accept(new ResultMightThrow<>(new IllegalStateException()));
+    StringRequest postRatingRequest =
+        new StringRequest(
+            Request.Method.POST,
+            CourseableApplication.SERVER_URL + "/rating/",
+            response -> {
+              try {
+                Rating ratingResponse = OBJECT_MAPPER.readValue(response, new TypeReference<>() {});
+                callback.accept(new ResultMightThrow<>(ratingResponse));
+              } catch (JsonProcessingException e) {
+                callback.accept(new ResultMightThrow<>(e));
+              }
+            },
+            error -> callback.accept(new ResultMightThrow<>(error))) {
+          @Override
+          public String getBodyContentType() {
+            return "application/json; charset=utf-8";
+          }
+
+          @Override
+          public byte[] getBody() {
+            try {
+              String body = OBJECT_MAPPER.writeValueAsString(rating);
+              return body.getBytes();
+            } catch (JsonProcessingException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        };
+    requestQueue.add(postRatingRequest);
   }
 
   // You should not need to modify the code below

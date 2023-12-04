@@ -149,6 +149,9 @@ public final class Server extends Dispatcher {
             .setResponseCode(HttpURLConnection.HTTP_OK);
       } else if (path.equals("/reset/") && method.equals("GET")) {
         // Used to reset the server during testing
+        for (Summary s : ratings.keySet()) {
+          ratings.get(s).setRating(-1.0f);
+        }
         return new MockResponse().setBody("200: OK").setResponseCode(HttpURLConnection.HTTP_OK);
       } else if (path.equals("/summary/") && method.equals("GET")) {
         System.out.println("DataFetch: returning summary list");

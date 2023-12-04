@@ -21,6 +21,10 @@ public class Rating {
     return summary;
   }
 
+  public void setRating(float setRating) {
+    rating = setRating;
+  }
+
   public float getRating() {
     return rating;
   }
