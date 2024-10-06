@@ -37,7 +37,7 @@ The project is divided into multiple checkpoints (MP1, MP2, MP3), each building 
 
 ### Installation
 
-1. Clone the repository: git clone [https://github.com/yourusername/CourseConnect.git](https://github.com/PragathTSiva/CourseConnect.git)
+1. Clone the repository: git clone [(https://github.com/PragathTSiva/CourseConnect.git)](https://github.com/PragathTSiva/CourseConnect.git)
 2. Open the project in Android Studio
 3. Sync Gradle files and build the project
 4. Run the app on an emulator or physical device
