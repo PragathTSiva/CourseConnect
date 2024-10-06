@@ -21,7 +21,7 @@ CourseConnect is an Android application developed as part of the CS 124 Machine 
 
 ## Project Structure
 
-The project is divided into multiple checkpoints (MP1, MP2, MP3, etc.), each building upon the previous one:
+The project is divided into multiple checkpoints (MP1, MP2, MP3), each building upon the previous one:
 
 1. **MP1**: Initial setup and basic UI implementation
 2. **MP2**: API server and client integration
