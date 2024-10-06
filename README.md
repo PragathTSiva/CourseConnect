@@ -26,7 +26,6 @@ The project is divided into multiple checkpoints (MP1, MP2, MP3, etc.), each bui
 1. **MP1**: Initial setup and basic UI implementation
 2. **MP2**: API server and client integration
 3. **MP3**: Advanced features and UI enhancements
-   (Add more checkpoints as applicable)
 
 ## Getting Started
 
